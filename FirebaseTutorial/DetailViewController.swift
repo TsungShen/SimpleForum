@@ -117,13 +117,13 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 //                return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell
-                let time:TimeInterval = 2.0
+                let time:TimeInterval = 2.5
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
                     cell?.replyName.text = self.responseReviews[indexPath.row].reply
                     cell?.replyTime.text = self.responseReviews[indexPath.row].datetime
                     cell?.replyContent.text = self.responseReviews[indexPath.row].content
                 }
-                
+                cell?.replyContent.delegate = self
                 returnCell = cell
 //                return cell!
             }

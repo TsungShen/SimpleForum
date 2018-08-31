@@ -684,7 +684,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="這裡是回應的文字內容。" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-nb-3qo">
-                                                    <rect key="frame" x="16" y="59" width="343" height="124"/>
+                                                    <rect key="frame" x="16" y="59" width="343" height="117"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -693,7 +693,7 @@
                                             <constraints>
                                                 <constraint firstItem="ehu-qx-EDf" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="5ak-y7-OYd"/>
                                                 <constraint firstItem="EQw-TZ-r9S" firstAttribute="top" secondItem="ehu-qx-EDf" secondAttribute="bottom" constant="8" id="DIX-Bw-oCF"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="1" id="Hd4-sR-05G"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="8" id="Hd4-sR-05G"/>
                                                 <constraint firstItem="LvM-nb-3qo" firstAttribute="top" secondItem="V9f-5x-Qyd" secondAttribute="bottom" constant="8" id="MAR-nC-avT"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EQw-TZ-r9S" secondAttribute="trailing" constant="102" id="Ofm-SC-rUw"/>
                                                 <constraint firstItem="V9f-5x-Qyd" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="V7j-2S-Pxa"/>
