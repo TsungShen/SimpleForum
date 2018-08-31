@@ -35,7 +35,7 @@ class ShowTableViewController: UITableViewController {
                     dataList.append(data)
                 }
                 self.postReviews = dataList.reversed()
-                print("dataList: \(dataList)")
+//                print("dataList: \(dataList)")
                 self.tableView.reloadData()
                 
             }

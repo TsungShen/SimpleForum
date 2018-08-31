@@ -23,6 +23,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     var authPhotoFromTableView:String!
     var childIDFromTableView:String?
     var authPhoto:UIImage!
+    var responseReviews: [ResponseItem] = [ResponseItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,31 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             }
 
         })
-        
+        //Download response
+        if let childID = childIDFromTableView {
+        Database.database().reference(withPath: "POST/\(childID)/reply").queryOrderedByKey().observe(.value, with: {
+            (snapshot) in
+            //            print("post count: \(snapshot.value)")
+            if snapshot.childrenCount > 0{
+                var dataListResponse: [ResponseItem] = [ResponseItem]()
+                
+                for item in snapshot.children{
+                    let data = ResponseItem(snapshot: item as! DataSnapshot)
+                    dataListResponse.append(data)
+                }
+                self.responseReviews = dataListResponse
+                //                print("dataList: \(dataList)")
+                self.detailTableView.reloadData()
+                
+            }
+            
+            
+            
+            //            if let dictionaryData = snapshot.value as? [String : AnyObject]{
+            //                print(dictionaryData)
+            //            }
+        })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,8 +88,13 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        }else {
-            return 5
+        }else{
+            if responseReviews.count < 1{
+                return 0
+            }else{
+                return responseReviews.count
+            }
+            
         }
         
     }
@@ -78,7 +108,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
                 cell.postTime.text = postTimeFromTableView
                 cell.postContent.text = postContentFromTableView
                 
-                let time:TimeInterval = 1.0
+                let time:TimeInterval = 2.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
                     cell.authPhoto.image = self.authPhoto
                 }
@@ -86,9 +116,14 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
                 returnCell = cell
 //                return cell
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell
+                let time:TimeInterval = 2.0
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
+                    cell?.replyName.text = self.responseReviews[indexPath.row].reply
+                    cell?.replyTime.text = self.responseReviews[indexPath.row].datetime
+                    cell?.replyContent.text = self.responseReviews[indexPath.row].content
+                }
                 
-//                cell.textLabel?.text = "Response Test"
                 returnCell = cell
 //                return cell!
             }
