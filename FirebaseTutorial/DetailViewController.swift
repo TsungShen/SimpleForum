@@ -21,6 +21,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     var postTimeFromTableView:String?
     var postContentFromTableView:String?
     var authPhotoFromTableView:String!
+    var childIDFromTableView:String?
     var authPhoto:UIImage!
 
     override func viewDidLoad() {
@@ -94,6 +95,14 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 //            return cell
         }
         return returnCell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goReply" {
+            if let dvc = segue.destination as? ResponseViewController{
+                dvc.childIDFromDetailTableView = self.childIDFromTableView
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

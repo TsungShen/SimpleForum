@@ -12,9 +12,6 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-struct jsonData: Decodable {
-    
-}
 
 class ShowTableViewController: UITableViewController {
     
@@ -90,22 +87,9 @@ class ShowTableViewController: UITableViewController {
                     dvc.postTimeFromTableView = postReviews[selectRow].datetime
                     dvc.postContentFromTableView = postReviews[selectRow].content
                     dvc.authPhotoFromTableView = postReviews[selectRow].photoURL
+                    dvc.childIDFromTableView = postReviews[selectRow].childId
                     
-                    //download photo
-//                    let maxSize:Int64 = 25 * 1024 * 1024
-//                    Storage.storage().reference(forURL: postReviews[selectRow].photoURL).getData(maxSize: maxSize, completion: {
-//                        (data,error) in
-//                        print("photo URL : \(self.postReviews[selectRow].photoURL)")
-//                        if error != nil{
-//                            print("Photo error")
-//                            return
-//                        }
-//                        guard let imageData = UIImage(data: data!) else { return }
-//
-//                            dvc.authPhotoFromTableView = imageData
-//                            print("success sent auth photo")
-//
-//                    })
+
                 }
             }
         }

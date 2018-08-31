@@ -820,6 +820,7 @@
                                 </constraints>
                                 <state key="normal" title="送出"/>
                                 <connections>
+                                    <action selector="replyPost:" destination="UpH-7F-D3M" eventType="touchUpInside" id="rJG-ow-lyo"/>
                                     <action selector="sendOut:" destination="KeE-nl-ziO" eventType="touchUpInside" id="JBB-fX-1uB"/>
                                 </connections>
                             </button>
@@ -851,6 +852,9 @@
                             <constraint firstItem="MLC-cq-Qk8" firstAttribute="top" secondItem="DYF-TB-EBg" secondAttribute="bottom" constant="8" id="oHP-rf-Go8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="replyContent" destination="E9S-Qm-zia" id="3xr-3H-7KI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQ6-Hg-CZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

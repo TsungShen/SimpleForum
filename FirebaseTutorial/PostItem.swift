@@ -16,6 +16,7 @@ struct PostItem {
     var datetime: String
     var auth: String
     var photoURL: String
+//    var reply: String
     
     init(snapshot: DataSnapshot) {
 //        print("snapshot: \(snapshot.value)")
@@ -27,5 +28,6 @@ struct PostItem {
         self.datetime = snapshotValue["dateTime"] as! String
         self.auth = snapshotValue["auth"] as! String
         self.photoURL = snapshotValue["photoURL"] as! String
+//        self.reply = snapshotValue["reply"] as! String
     }
 }
