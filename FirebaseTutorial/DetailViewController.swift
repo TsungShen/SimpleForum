@@ -63,7 +63,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         if section == 0 {
             return 1
         }else {
-            return 3
+            return 5
         }
         
     }
@@ -104,10 +104,6 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     
-    
-    @IBAction func goBack(_ sender: UIBarButtonItem) {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
     func textViewDidChange(_ textView: UITextView) {
         let currentOffset = detailTableView.contentOffset
         UIView.setAnimationsEnabled(false)
