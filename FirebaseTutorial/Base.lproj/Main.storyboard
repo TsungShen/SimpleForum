@@ -651,11 +651,11 @@
                                             <outlet property="postTitle" destination="1hN-87-QzU" id="u7n-I2-zfj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="responseCell" rowHeight="195" id="syZ-nk-Lu8" customClass="ResponseTableViewCell" customModule="FirebaseTutorial" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="270" width="375" height="195"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="responseCell" rowHeight="241" id="syZ-nk-Lu8" customClass="ResponseTableViewCell" customModule="FirebaseTutorial" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="270" width="375" height="241"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="syZ-nk-Lu8" id="XFI-rv-bVm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="194.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="240.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V9f-5x-Qyd">
@@ -683,18 +683,28 @@
                                                     <color key="textColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="這裡是回應的文字內容。" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-nb-3qo">
-                                                    <rect key="frame" x="16" y="59" width="343" height="117"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-nb-3qo">
+                                                    <rect key="frame" x="16" y="59" width="343" height="133"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="151-WU-1lZ">
+                                                    <rect key="frame" x="15" y="200" width="50" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="4dk-WC-DoX"/>
+                                                        <constraint firstAttribute="width" constant="50" id="Dth-DP-2zp"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ehu-qx-EDf" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="5ak-y7-OYd"/>
+                                                <constraint firstItem="151-WU-1lZ" firstAttribute="leading" secondItem="XFI-rv-bVm" secondAttribute="leadingMargin" id="6nS-JR-Swz"/>
+                                                <constraint firstItem="151-WU-1lZ" firstAttribute="top" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="8" id="ADm-wT-va7"/>
                                                 <constraint firstItem="EQw-TZ-r9S" firstAttribute="top" secondItem="ehu-qx-EDf" secondAttribute="bottom" constant="8" id="DIX-Bw-oCF"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="8" id="Hd4-sR-05G"/>
                                                 <constraint firstItem="LvM-nb-3qo" firstAttribute="top" secondItem="V9f-5x-Qyd" secondAttribute="bottom" constant="8" id="MAR-nC-avT"/>
+                                                <constraint firstItem="151-WU-1lZ" firstAttribute="bottom" secondItem="XFI-rv-bVm" secondAttribute="bottomMargin" id="MXo-2q-6Et"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EQw-TZ-r9S" secondAttribute="trailing" constant="102" id="Ofm-SC-rUw"/>
                                                 <constraint firstItem="V9f-5x-Qyd" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="V7j-2S-Pxa"/>
                                                 <constraint firstItem="ehu-qx-EDf" firstAttribute="leading" secondItem="V9f-5x-Qyd" secondAttribute="trailing" constant="8" id="bOB-KV-NKz"/>

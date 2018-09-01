@@ -30,8 +30,9 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         print("auth photo: \(authPhotoFromTableView)")
         detailTableView.delegate = self
         detailTableView.dataSource = self
-        detailTableView.rowHeight = UITableViewAutomaticDimension
-        detailTableView.estimatedRowHeight = 200
+        
+//        detailTableView.rowHeight = UITableViewAutomaticDimension
+//        detailTableView.estimatedRowHeight = 200
 
         //download photo
         let maxSize:Int64 = 25 * 1024 * 1024
@@ -50,29 +51,55 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 
         })
         //Download response
+//        if let childID = childIDFromTableView {
+//            print("run in download response data")
+//            Database.database().reference(withPath: "POST/\(childID)/reply").queryOrderedByKey().observe(.value, with: {
+//                (snapshot) in
+//                //            print("post count: \(snapshot.value)")
+//                if snapshot.childrenCount > 0{
+//                    var dataListResponse: [ResponseItem] = [ResponseItem]()
+//
+//                    for item in snapshot.children{
+//                        let data = ResponseItem(snapshot: item as! DataSnapshot)
+//                        dataListResponse.append(data)
+//                    }
+//                    self.responseReviews = dataListResponse
+//                    print("dataListResponse: \(dataListResponse)")
+//                    self.detailTableView.reloadData()
+////                    self.detailTableView.beginUpdates()
+////                    self.detailTableView.endUpdates()
+//                    print("download response end")
+//                }
+//
+//            })
+//        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print("run viewWillAppear")
+        //Download response
         if let childID = childIDFromTableView {
-        Database.database().reference(withPath: "POST/\(childID)/reply").queryOrderedByKey().observe(.value, with: {
-            (snapshot) in
-            //            print("post count: \(snapshot.value)")
-            if snapshot.childrenCount > 0{
-                var dataListResponse: [ResponseItem] = [ResponseItem]()
-                
-                for item in snapshot.children{
-                    let data = ResponseItem(snapshot: item as! DataSnapshot)
-                    dataListResponse.append(data)
+            print("run in download response data")
+            Database.database().reference(withPath: "POST/\(childID)/reply").queryOrderedByKey().observe(.value, with: {
+                (snapshot) in
+                //            print("post count: \(snapshot.value)")
+                if snapshot.childrenCount > 0{
+                    var dataListResponse: [ResponseItem] = [ResponseItem]()
+                    
+                    for item in snapshot.children{
+                        let data = ResponseItem(snapshot: item as! DataSnapshot)
+                        dataListResponse.append(data)
+                    }
+                    self.responseReviews = dataListResponse
+                    print("dataListResponse: \(dataListResponse)")
+                    self.detailTableView.reloadData()
+                    //                    self.detailTableView.beginUpdates()
+                    //                    self.detailTableView.endUpdates()
+                    print("download response end")
                 }
-                self.responseReviews = dataListResponse
-                //                print("dataList: \(dataList)")
-                self.detailTableView.reloadData()
                 
-            }
-            
-            
-            
-            //            if let dictionaryData = snapshot.value as? [String : AnyObject]{
-            //                print(dictionaryData)
-            //            }
-        })
+            })
         }
     }
 
@@ -100,36 +127,40 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var returnCell:UITableViewCell?
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? DetailTableViewCell{
-            if indexPath.section == 0 {
-                cell.authName.text = authNameFromTableView
-                cell.postTitle.text = postTitleFromTableView
-                cell.postTime.text = postTimeFromTableView
-                cell.postContent.text = postContentFromTableView
+        
+        if indexPath.section == 0{
+            if let cellPost = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? DetailTableViewCell{
+                cellPost.authName.text = authNameFromTableView
+                cellPost.postTitle.text = postTitleFromTableView
+                cellPost.postTime.text = postTimeFromTableView
+                cellPost.postContent.text = postContentFromTableView
                 
                 let time:TimeInterval = 2.0
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
-                    cell.authPhoto.image = self.authPhoto
+                    cellPost.authPhoto.image = self.authPhoto
                 }
-                cell.postContent.delegate = self
-                returnCell = cell
-//                return cell
+                cellPost.postContent.delegate = self
+                return cellPost
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell
-                let time:TimeInterval = 2.5
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
-                    cell?.replyName.text = self.responseReviews[indexPath.row].reply
-                    cell?.replyTime.text = self.responseReviews[indexPath.row].datetime
-                    cell?.replyContent.text = self.responseReviews[indexPath.row].content
-                }
-                cell?.replyContent.delegate = self
-                returnCell = cell
-//                return cell!
+                let cellPost = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cellPost.textLabel?.text = "Error"
+                return cellPost
             }
-//            return cell
+            
+        }else{
+            if let cellResponse = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell{
+                cellResponse.replyName.text = self.responseReviews[indexPath.row].reply
+                cellResponse.replyTime.text = self.responseReviews[indexPath.row].datetime
+                cellResponse.replyContent.text = self.responseReviews[indexPath.row].content
+                cellResponse.replyContent.delegate = self
+                return cellResponse
+            }else{
+                let cellResponse = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+                cellResponse.textLabel?.text = "Error"
+                return cellResponse
+            }
         }
-        return returnCell!
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -149,12 +180,12 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        let currentOffset = detailTableView.contentOffset
-        UIView.setAnimationsEnabled(false)
-        detailTableView.beginUpdates()
-        detailTableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
-        detailTableView.setContentOffset(currentOffset, animated: false)
+//        let currentOffset = detailTableView.contentOffset
+//        UIView.setAnimationsEnabled(false)
+//        detailTableView.beginUpdates()
+//        detailTableView.endUpdates()
+//        UIView.setAnimationsEnabled(true)
+//        detailTableView.setContentOffset(currentOffset, animated: false)
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
