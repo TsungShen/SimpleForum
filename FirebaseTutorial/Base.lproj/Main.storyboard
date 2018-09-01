@@ -725,9 +725,9 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="m3P-WG-IQe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="FJ8-pC-TsJ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lpQ-RQ-F64">
                             <connections>
-                                <segue destination="UpH-7F-D3M" kind="showDetail" identifier="goReply" id="YOt-yv-KaI"/>
+                                <action selector="actionMenu:" destination="WgM-Tm-GM4" id="Nt8-FM-cfl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

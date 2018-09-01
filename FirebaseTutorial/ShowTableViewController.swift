@@ -106,9 +106,6 @@ class ShowTableViewController: UITableViewController {
             (action,index) in
             if isRemove == true{
                 print("delete")
-//                Database.database().reference().child("POST/\(self.postReviews[indexPath.row].childId)").removeValue()
-//                self.postReviews.remove(at: indexPath.row)
-//                tableView.reloadData()
                 let alertController = UIAlertController(title: "刪除確認", message: "確認要刪除文章嗎？", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "確認", style: .default){
                     (action:UIAlertAction) in

@@ -144,13 +144,13 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goReply" {
-            if let dvc = segue.destination as? ResponseViewController{
-                dvc.childIDFromDetailTableView = self.childIDFromTableView
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "goReply" {
+//            if let dvc = segue.destination as? ResponseViewController{
+//                dvc.childIDFromDetailTableView = self.childIDFromTableView
+//            }
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
@@ -160,6 +160,25 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     
+    @IBAction func actionMenu(_ sender: UIBarButtonItem) {
+        let actionController = UIAlertController(title: "更多動作", message: "請選擇要執行的動作", preferredStyle: .actionSheet)
+        let replyAction = UIAlertAction(title: "回應文章", style: .default){
+            (action:UIAlertAction) in
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "replyPost") as! ResponseViewController
+            vc.childIDFromDetailTableView = self.childIDFromTableView
+            self.present(vc, animated: true, completion: nil)
+        }
+        let deleteAction = UIAlertAction(title: "編輯文章", style: .default){
+            (action:UIAlertAction) in
+            print("delete post in show post page")
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        actionController.addAction(replyAction)
+        actionController.addAction(deleteAction)
+        actionController.addAction(cancelAction)
+        self.present(actionController, animated: true, completion: nil)
+        
+    }
     
     
     func textViewDidChange(_ textView: UITextView) {
