@@ -22,8 +22,9 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     var postContentFromTableView:String?
     var authPhotoFromTableView:String!
     var childIDFromTableView:String?
-    var authPhoto:UIImage!
-    var responseReviews: [ResponseItem] = [ResponseItem]()
+//    var authPhoto:UIImage!
+    var responseReviews:[ResponseItem] = [ResponseItem]()
+    var replyPhoto:[UIImage] = [UIImage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,45 +35,8 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        detailTableView.rowHeight = UITableViewAutomaticDimension
 //        detailTableView.estimatedRowHeight = 200
 
-        //download photo
-        let maxSize:Int64 = 25 * 1024 * 1024
 
-        Storage.storage().reference(forURL: authPhotoFromTableView!).getData(maxSize: maxSize, completion: {
-            (data,error) in
-            if error != nil{
-                print("Photo error")
-                return
-            }
-            guard let imageData = UIImage(data: data!) else { return }
-            DispatchQueue.main.async {
-                self.authPhoto = imageData
-                print("image data: \(self.authPhoto)")
-            }
-
-        })
-        //Download response
-//        if let childID = childIDFromTableView {
-//            print("run in download response data")
-//            Database.database().reference(withPath: "POST/\(childID)/reply").queryOrderedByKey().observe(.value, with: {
-//                (snapshot) in
-//                //            print("post count: \(snapshot.value)")
-//                if snapshot.childrenCount > 0{
-//                    var dataListResponse: [ResponseItem] = [ResponseItem]()
-//
-//                    for item in snapshot.children{
-//                        let data = ResponseItem(snapshot: item as! DataSnapshot)
-//                        dataListResponse.append(data)
-//                    }
-//                    self.responseReviews = dataListResponse
-//                    print("dataListResponse: \(dataListResponse)")
-//                    self.detailTableView.reloadData()
-////                    self.detailTableView.beginUpdates()
-////                    self.detailTableView.endUpdates()
-//                    print("download response end")
-//                }
-//
-//            })
-//        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,15 +56,13 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
                         dataListResponse.append(data)
                     }
                     self.responseReviews = dataListResponse
-                    print("dataListResponse: \(dataListResponse)")
                     self.detailTableView.reloadData()
-                    //                    self.detailTableView.beginUpdates()
-                    //                    self.detailTableView.endUpdates()
                     print("download response end")
                 }
                 
             })
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,24 +83,30 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             }else{
                 return responseReviews.count
             }
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 0{
             if let cellPost = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? DetailTableViewCell{
                 cellPost.authName.text = authNameFromTableView
                 cellPost.postTitle.text = postTitleFromTableView
                 cellPost.postTime.text = postTimeFromTableView
                 cellPost.postContent.text = postContentFromTableView
-                
-                let time:TimeInterval = 2.0
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
-                    cellPost.authPhoto.image = self.authPhoto
-                }
+                //download photo
+                let maxSize:Int64 = 25 * 1024 * 1024
+                Storage.storage().reference(forURL: authPhotoFromTableView!).getData(maxSize: maxSize, completion: {
+                    (data,error) in
+                    if error != nil{
+                        print("Photo error")
+                        return
+                    }
+                    guard let imageData = UIImage(data: data!) else { return }
+                    DispatchQueue.main.async {
+                        cellPost.authPhoto.image = imageData
+                    }
+                    
+                })
                 cellPost.postContent.delegate = self
                 return cellPost
             }else{
@@ -146,12 +114,25 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
                 cellPost.textLabel?.text = "Error"
                 return cellPost
             }
-            
         }else{
             if let cellResponse = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell{
                 cellResponse.replyName.text = self.responseReviews[indexPath.row].reply
                 cellResponse.replyTime.text = self.responseReviews[indexPath.row].datetime
                 cellResponse.replyContent.text = self.responseReviews[indexPath.row].content
+                //download photo
+                let maxSize:Int64 = 25 * 1024 * 1024
+                Storage.storage().reference(forURL: self.responseReviews[indexPath.row].photoURL).getData(maxSize: maxSize, completion: {
+                    (data,error) in
+                    if error != nil{
+                        print("Photo error")
+                        return
+                    }
+                    guard let imageData = UIImage(data: data!) else { return }
+                    DispatchQueue.main.async {
+                        cellResponse.replyPhoto.image = imageData
+                    }
+                    
+                })
                 cellResponse.replyContent.delegate = self
                 return cellResponse
             }else{
@@ -187,12 +168,6 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        UIView.setAnimationsEnabled(true)
 //        detailTableView.setContentOffset(currentOffset, animated: false)
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return detailTableView.rowHeight
-//    }
-    
-
     /*
     // MARK: - Navigation
 
