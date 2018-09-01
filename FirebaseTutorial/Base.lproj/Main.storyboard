@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tN7-MN-Sdg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="576.79999999999995" y="268.51574212893553"/>
+            <point key="canvasLocation" x="447" y="425"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Edj-Iz-mGG">
@@ -344,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jkC-X5-2kD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1468" y="1177"/>
+            <point key="canvasLocation" x="1556" y="1175"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="51j-fk-Jwd">
@@ -452,7 +452,7 @@
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="content" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="194-Vl-UGa">
                                 <rect key="frame" x="61" y="356" width="253" height="154"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.79238069359999996" green="0.800226047" blue="0.800226047" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="154" id="FVD-5M-PFp"/>
                                 </constraints>
@@ -684,30 +684,20 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。這裡是回應的文字內容。" translatesAutoresizingMaskIntoConstraints="NO" id="LvM-nb-3qo">
-                                                    <rect key="frame" x="16" y="59" width="343" height="133"/>
+                                                    <rect key="frame" x="16" y="59" width="343" height="163"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="151-WU-1lZ">
-                                                    <rect key="frame" x="15" y="200" width="50" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="4dk-WC-DoX"/>
-                                                        <constraint firstAttribute="width" constant="50" id="Dth-DP-2zp"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ehu-qx-EDf" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="5ak-y7-OYd"/>
-                                                <constraint firstItem="151-WU-1lZ" firstAttribute="leading" secondItem="XFI-rv-bVm" secondAttribute="leadingMargin" id="6nS-JR-Swz"/>
-                                                <constraint firstItem="151-WU-1lZ" firstAttribute="top" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="8" id="ADm-wT-va7"/>
                                                 <constraint firstItem="EQw-TZ-r9S" firstAttribute="top" secondItem="ehu-qx-EDf" secondAttribute="bottom" constant="8" id="DIX-Bw-oCF"/>
                                                 <constraint firstItem="LvM-nb-3qo" firstAttribute="top" secondItem="V9f-5x-Qyd" secondAttribute="bottom" constant="8" id="MAR-nC-avT"/>
-                                                <constraint firstItem="151-WU-1lZ" firstAttribute="bottom" secondItem="XFI-rv-bVm" secondAttribute="bottomMargin" id="MXo-2q-6Et"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EQw-TZ-r9S" secondAttribute="trailing" constant="102" id="Ofm-SC-rUw"/>
                                                 <constraint firstItem="V9f-5x-Qyd" firstAttribute="top" secondItem="XFI-rv-bVm" secondAttribute="topMargin" id="V7j-2S-Pxa"/>
                                                 <constraint firstItem="ehu-qx-EDf" firstAttribute="leading" secondItem="V9f-5x-Qyd" secondAttribute="trailing" constant="8" id="bOB-KV-NKz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LvM-nb-3qo" secondAttribute="bottom" constant="8" id="eZx-XT-POf"/>
                                                 <constraint firstItem="EQw-TZ-r9S" firstAttribute="leading" secondItem="V9f-5x-Qyd" secondAttribute="trailing" constant="8" id="hVW-Dg-V7v"/>
                                                 <constraint firstItem="LvM-nb-3qo" firstAttribute="leading" secondItem="XFI-rv-bVm" secondAttribute="leadingMargin" constant="1" id="uWr-Bl-wrd"/>
                                                 <constraint firstItem="V9f-5x-Qyd" firstAttribute="leading" secondItem="XFI-rv-bVm" secondAttribute="leadingMargin" id="ygr-ts-gzP"/>
@@ -874,6 +864,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="beR-1q-6vA"/>
         <segue reference="MqV-y1-dHY"/>
-        <segue reference="jCO-ed-QLw"/>
+        <segue reference="V5Z-ei-lQN"/>
     </inferredMetricsTieBreakers>
 </document>
