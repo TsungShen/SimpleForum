@@ -89,11 +89,72 @@ class ShowTableViewController: UITableViewController {
                     dvc.authPhotoFromTableView = postReviews[selectRow].photoURL
                     dvc.childIDFromTableView = postReviews[selectRow].childId
                     
-
                 }
             }
         }
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let authUID = postReviews[indexPath.row].userUID
+        let currentUID = Auth.auth().currentUser?.uid
+        var isRemove = false
+        
+        if authUID == currentUID{
+            isRemove = true
+        }
+        let deleteAction = UITableViewRowAction(style: .normal, title: "刪除", handler: {
+            (action,index) in
+            if isRemove == true{
+                print("delete")
+//                Database.database().reference().child("POST/\(self.postReviews[indexPath.row].childId)").removeValue()
+//                self.postReviews.remove(at: indexPath.row)
+//                tableView.reloadData()
+                let alertController = UIAlertController(title: "刪除確認", message: "確認要刪除文章嗎？", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "確認", style: .default){
+                    (action:UIAlertAction) in
+                    Database.database().reference().child("POST/\(self.postReviews[indexPath.row].childId)").removeValue()
+                    self.postReviews.remove(at: indexPath.row)
+                    tableView.reloadData()
+                }
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                alertController.addAction(cancelAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            }else{
+                print("Not auth don't remove")
+                self.popAlert(titleStr: "刪除失敗", messageStr: "非本篇文章作者，不可刪除")
+            }
+            
+        })
+        deleteAction.backgroundColor = .red
+        return [deleteAction]
+        
+    }
+    
+    func popAlert(titleStr:String, messageStr:String){
+        let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+//    func popAlertOK(titleStr:String, messageStr:String){
+//        let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
+//        let defaultAction = UIAlertAction(title: "確認", style: .default){
+//            (action:UIAlertAction) in
+//            print("delete")
+//            Database.database().reference().child("POST/\(self.postReviews[indexPath.row].childId)").removeValue()
+//            self.postReviews.remove(at: indexPath.row)
+//            tableView.reloadData()
+//        }
+//        alertController.addAction(defaultAction)
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//        alertController.addAction(defaultAction)
+//        alertController.addAction(cancelAction)
+//
+//        present(alertController, animated: true, completion: nil)
+//    }
     
     
 //    func downloadPhoto(){

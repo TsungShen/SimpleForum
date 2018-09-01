@@ -160,6 +160,8 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     
+    
+    
     func textViewDidChange(_ textView: UITextView) {
 //        let currentOffset = detailTableView.contentOffset
 //        UIView.setAnimationsEnabled(false)

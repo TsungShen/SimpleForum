@@ -36,6 +36,7 @@ class InputViewController: UIViewController {
             post["dateTime"] = "\(timeNow)" as AnyObject
             post["auth"] = "\(authName)" as AnyObject
             post["photoURL"] = "\(photoURL)" as AnyObject
+            post["userUID"] = "\(uid)" as AnyObject
             
             let postReference = reference.child(childRef.key)
             postReference.updateChildValues(post){
