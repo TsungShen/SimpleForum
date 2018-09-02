@@ -22,7 +22,9 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     var postContentFromTableView:String?
     var authPhotoFromTableView:String!
     var childIDFromTableView:String?
-//    var authPhoto:UIImage!
+    var authUID:String?
+    var currerUID:String?
+    
     var responseReviews:[ResponseItem] = [ResponseItem]()
     var replyPhoto:[UIImage] = [UIImage]()
 
@@ -31,7 +33,9 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         print("auth photo: \(authPhotoFromTableView)")
         detailTableView.delegate = self
         detailTableView.dataSource = self
-        
+        if let user = Auth.auth().currentUser{
+            currerUID = user.uid
+        }
 //        detailTableView.rowHeight = UITableViewAutomaticDimension
 //        detailTableView.estimatedRowHeight = 200
 
@@ -168,16 +172,21 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             vc.childIDFromDetailTableView = self.childIDFromTableView
             self.present(vc, animated: true, completion: nil)
         }
-        let deleteAction = UIAlertAction(title: "編輯文章", style: .default){
+        let updateAction = UIAlertAction(title: "編輯文章", style: .default){
             (action:UIAlertAction) in
             print("delete post in show post page")
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        actionController.addAction(replyAction)
-        actionController.addAction(deleteAction)
-        actionController.addAction(cancelAction)
-        self.present(actionController, animated: true, completion: nil)
         
+        if currerUID == authUID{
+            actionController.addAction(replyAction)
+            actionController.addAction(updateAction)
+            actionController.addAction(cancelAction)
+        }else{
+            actionController.addAction(replyAction)
+            actionController.addAction(cancelAction)
+        }
+        self.present(actionController, animated: true, completion: nil)
     }
     
     

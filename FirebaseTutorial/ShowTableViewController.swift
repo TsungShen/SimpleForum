@@ -88,7 +88,7 @@ class ShowTableViewController: UITableViewController {
                     dvc.postContentFromTableView = postReviews[selectRow].content
                     dvc.authPhotoFromTableView = postReviews[selectRow].photoURL
                     dvc.childIDFromTableView = postReviews[selectRow].childId
-                    
+                    dvc.authUID = postReviews[selectRow].userUID
                 }
             }
         }
