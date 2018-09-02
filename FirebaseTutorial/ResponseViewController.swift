@@ -84,7 +84,7 @@ class ResponseViewController: UIViewController {
                 }
                 print("Success reply")
                 popAlert(titleStr: "回應成功", messageStr: "已成功回應貼文")
-                
+
                 //            titleText.text = ""
                 //            contentText.text = ""
             }
@@ -106,7 +106,10 @@ class ResponseViewController: UIViewController {
     }
     func popAlert(titleStr:String, messageStr:String){
         let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel){
+            (action:UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }
         alertController.addAction(defaultAction)
         
         present(alertController, animated: true, completion: nil)

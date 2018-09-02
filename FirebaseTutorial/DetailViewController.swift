@@ -175,6 +175,11 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         let updateAction = UIAlertAction(title: "編輯文章", style: .default){
             (action:UIAlertAction) in
             print("delete post in show post page")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "updatePost") as! UpdateViewController
+            vc.titleFromDetailTableView = self.postTitleFromTableView
+            vc.contentFromDetailTableView = self.postContentFromTableView
+            vc.childIDFromDetailTableView = self.childIDFromTableView
+            self.present(vc, animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         

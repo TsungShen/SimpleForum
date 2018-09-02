@@ -18,6 +18,7 @@
 		7D7826AE213975C200DEC023 /* ResponseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7826AD213975C200DEC023 /* ResponseTableViewCell.swift */; };
 		7DE78B4C21398AB00004479A /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4B21398AB00004479A /* ResponseViewController.swift */; };
 		7DE78B4E2139A5050004479A /* ResponseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4D2139A5050004479A /* ResponseItem.swift */; };
+		7DE78B50213C00BA0004479A /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4F213C00BA0004479A /* UpdateViewController.swift */; };
 		F4443AE01DF2DFDA00800C92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4443ADF1DF2DFDA00800C92 /* AppDelegate.swift */; };
 		F4443AE51DF2DFDA00800C92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4443AE31DF2DFDA00800C92 /* Main.storyboard */; };
 		F4443AE71DF2DFDA00800C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4443AE61DF2DFDA00800C92 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		7D7826AD213975C200DEC023 /* ResponseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTableViewCell.swift; sourceTree = "<group>"; };
 		7DE78B4B21398AB00004479A /* ResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		7DE78B4D2139A5050004479A /* ResponseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseItem.swift; sourceTree = "<group>"; };
+		7DE78B4F213C00BA0004479A /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		89B55C5B8FDE9871D2A881D8 /* Pods-FirebaseTutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseTutorial.release.xcconfig"; path = "Target Support Files/Pods-FirebaseTutorial/Pods-FirebaseTutorial.release.xcconfig"; sourceTree = "<group>"; };
 		F4443ADC1DF2DFDA00800C92 /* FirebaseTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4443ADF1DF2DFDA00800C92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				7D7826AD213975C200DEC023 /* ResponseTableViewCell.swift */,
 				7DE78B4B21398AB00004479A /* ResponseViewController.swift */,
 				7DE78B4D2139A5050004479A /* ResponseItem.swift */,
+				7DE78B4F213C00BA0004479A /* UpdateViewController.swift */,
 			);
 			path = FirebaseTutorial;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				7D7826A621319BE000DEC023 /* PostItem.swift in Sources */,
 				F4443AF61DF2E34F00800C92 /* HomeViewController.swift in Sources */,
 				7D7826AC2137B85700DEC023 /* DetailTableViewCell.swift in Sources */,
+				7DE78B50213C00BA0004479A /* UpdateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
