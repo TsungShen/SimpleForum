@@ -15,7 +15,7 @@ struct ResponseItem {
     var datetime: String
     var reply: String
     var photoURL: String
-    //    var reply: String
+    var userUID: String
     
     init(snapshot: DataSnapshot) {
         //        print("snapshot: \(snapshot.value)")
@@ -26,6 +26,6 @@ struct ResponseItem {
         self.datetime = snapshotValue["dateTime"] as! String
         self.reply = snapshotValue["reply"] as! String
         self.photoURL = snapshotValue["photoURL"] as! String
-        //        self.reply = snapshotValue["reply"] as! String
+        self.userUID = snapshotValue["userUID"] as! String
     }
 }

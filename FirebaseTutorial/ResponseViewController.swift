@@ -72,6 +72,7 @@ class ResponseViewController: UIViewController {
                 reply["dateTime"] = "\(timeNow)" as AnyObject
                 reply["reply"] = "\(replyName)" as AnyObject
                 reply["photoURL"] = "\(photoURL)" as AnyObject
+                reply["userUID"] = "\(uid)" as AnyObject
                 
                 let replyReference = reference.child(childRef.key)
                 replyReference.updateChildValues(reply){

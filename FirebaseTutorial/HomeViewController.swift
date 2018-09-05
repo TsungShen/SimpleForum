@@ -25,8 +25,8 @@ class HomeViewController: UIViewController {
         if let user = Auth.auth().currentUser {
             self.uid = user.uid
             
-            print(user.email!)
-            print("uid: \(user.uid)")
+//            print(user.email!)
+//            print("uid: \(user.uid)")
             var ref:DatabaseReference!
             //
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Name")
@@ -86,7 +86,11 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func editProfile(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "editProfile")
+        present(vc!, animated: true, completion: nil)
+    }
+    
     @IBAction func logOutAction(sender: AnyObject) {
         if Auth.auth().currentUser != nil{
             do{

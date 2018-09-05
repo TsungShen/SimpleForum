@@ -19,6 +19,7 @@
 		7DE78B4C21398AB00004479A /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4B21398AB00004479A /* ResponseViewController.swift */; };
 		7DE78B4E2139A5050004479A /* ResponseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4D2139A5050004479A /* ResponseItem.swift */; };
 		7DE78B50213C00BA0004479A /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B4F213C00BA0004479A /* UpdateViewController.swift */; };
+		7DE78B52214021280004479A /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE78B51214021280004479A /* ProfileEditViewController.swift */; };
 		F4443AE01DF2DFDA00800C92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4443ADF1DF2DFDA00800C92 /* AppDelegate.swift */; };
 		F4443AE51DF2DFDA00800C92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4443AE31DF2DFDA00800C92 /* Main.storyboard */; };
 		F4443AE71DF2DFDA00800C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4443AE61DF2DFDA00800C92 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		7DE78B4B21398AB00004479A /* ResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
 		7DE78B4D2139A5050004479A /* ResponseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseItem.swift; sourceTree = "<group>"; };
 		7DE78B4F213C00BA0004479A /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
+		7DE78B51214021280004479A /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		89B55C5B8FDE9871D2A881D8 /* Pods-FirebaseTutorial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseTutorial.release.xcconfig"; path = "Target Support Files/Pods-FirebaseTutorial/Pods-FirebaseTutorial.release.xcconfig"; sourceTree = "<group>"; };
 		F4443ADC1DF2DFDA00800C92 /* FirebaseTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4443ADF1DF2DFDA00800C92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				7DE78B4B21398AB00004479A /* ResponseViewController.swift */,
 				7DE78B4D2139A5050004479A /* ResponseItem.swift */,
 				7DE78B4F213C00BA0004479A /* UpdateViewController.swift */,
+				7DE78B51214021280004479A /* ProfileEditViewController.swift */,
 			);
 			path = FirebaseTutorial;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE78B52214021280004479A /* ProfileEditViewController.swift in Sources */,
 				F4443AF71DF2E34F00800C92 /* LoginViewController.swift in Sources */,
 				F4443AF51DF2E34F00800C92 /* SignUpViewController.swift in Sources */,
 				F4443AF81DF2E34F00800C92 /* ResetPasswordViewController.swift in Sources */,

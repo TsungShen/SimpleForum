@@ -22,7 +22,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     var postContentFromTableView:String?
     var authPhotoFromTableView:String!
     var childIDFromTableView:String?
-    var authUID:String?
+    var authUID:String!
     var currerUID:String?
     
     var responseReviews:[ResponseItem] = [ResponseItem]()
@@ -30,7 +30,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("auth photo: \(authPhotoFromTableView)")
+//        print("auth photo: \(authPhotoFromTableView)")
         detailTableView.delegate = self
         detailTableView.dataSource = self
         if let user = Auth.auth().currentUser{
@@ -93,26 +93,54 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             if let cellPost = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? DetailTableViewCell{
-                cellPost.authName.text = authNameFromTableView
+//                cellPost.authName.text = authNameFromTableView
                 cellPost.postTitle.text = postTitleFromTableView
                 cellPost.postTime.text = postTimeFromTableView
                 cellPost.postContent.text = postContentFromTableView
-                //download photo
-                let maxSize:Int64 = 25 * 1024 * 1024
-                Storage.storage().reference(forURL: authPhotoFromTableView!).getData(maxSize: maxSize, completion: {
-                    (data,error) in
-                    if error != nil{
-                        print("Photo error")
-                        return
-                    }
-                    guard let imageData = UIImage(data: data!) else { return }
-                    DispatchQueue.main.async {
-                        cellPost.authPhoto.image = imageData
-                    }
+                
+                var ref:DatabaseReference!
+                if let uid = authUID{
+                    //download name
+                    ref = Database.database().reference(withPath: "ID/\(uid)/Profile/Name")
+                    ref.observe(.value, with: {
+                        (snapshot) in
+                        if let name = snapshot.value{
+                            let showName = name as! String
+                            cellPost.authName.text = showName
+                        }else{
+                            cellPost.authName.text = "User"
+                        }
+                    })
                     
-                })
+                    ////download photoURL & photoData
+                    ref = Database.database().reference(withPath: "ID/\(uid)/Profile/Photo")
+                    ref.observe(.value, with: {
+                        (snapshot) in
+                        if let photo = snapshot.value{
+//                            print("photo: \(photo)")
+                            let showPhoto = photo as! String
+                            //download photo
+                            let maxSize:Int64 = 25 * 1024 * 1024
+                            //authPhotoFromTableView!
+                            Storage.storage().reference(forURL: showPhoto).getData(maxSize: maxSize, completion: {
+                                (data,error) in
+                                if error != nil{
+                                    print("Photo error")
+                                    return
+                                }
+                                guard let imageData = UIImage(data: data!) else { return }
+                                DispatchQueue.main.async {
+                                    cellPost.authPhoto.image = imageData
+                                }
+                            })
+                        }else{
+                            
+                        }
+                    })
+                }
                 cellPost.postContent.delegate = self
                 return cellPost
+                
             }else{
                 let cellPost = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
                 cellPost.textLabel?.text = "Error"
@@ -120,23 +148,67 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             }
         }else{
             if let cellResponse = tableView.dequeueReusableCell(withIdentifier: "responseCell", for: indexPath) as? ResponseTableViewCell{
-                cellResponse.replyName.text = self.responseReviews[indexPath.row].reply
+//                cellResponse.replyName.text = self.responseReviews[indexPath.row].reply
                 cellResponse.replyTime.text = self.responseReviews[indexPath.row].datetime
                 cellResponse.replyContent.text = self.responseReviews[indexPath.row].content
-                //download photo
-                let maxSize:Int64 = 25 * 1024 * 1024
-                Storage.storage().reference(forURL: self.responseReviews[indexPath.row].photoURL).getData(maxSize: maxSize, completion: {
-                    (data,error) in
-                    if error != nil{
-                        print("Photo error")
-                        return
-                    }
-                    guard let imageData = UIImage(data: data!) else { return }
-                    DispatchQueue.main.async {
-                        cellResponse.replyPhoto.image = imageData
+                //download name
+                var ref:DatabaseReference!
+                ref = Database.database().reference(withPath: "ID/\(responseReviews[indexPath.row].userUID)/Profile/Name")
+                ref.observe(.value, with: {
+                    (snapshot) in
+                    if let name = snapshot.value{
+                        let showName = name as! String
+                        print(showName)
+                        cellResponse.replyName.text = showName
+                    }else{
+                        cellResponse.replyName.text = "User"
                     }
                     
                 })
+                //download photoURL & photoData
+//                var ref:DatabaseReference!
+                ref = Database.database().reference(withPath: "ID/\(responseReviews[indexPath.row].userUID)/Profile/Photo")
+                ref.observe(.value, with: {
+                    (snapshot) in
+                    if let photo = snapshot.value{
+                        let showPhoto = photo as! String
+                        //download photo
+                        let maxSize:Int64 = 25 * 1024 * 1024
+                        //authPhotoFromTableView!
+                        Storage.storage().reference(forURL: showPhoto).getData(maxSize: maxSize, completion: {
+                            (data,error) in
+                            if error != nil{
+                                print("Photo error")
+                                return
+                            }
+                            guard let imageData = UIImage(data: data!) else { return }
+                            DispatchQueue.main.async {
+                                cellResponse.replyPhoto.image = imageData
+                            }
+                            
+                        })
+                    }else{
+                        
+                    }
+                    
+                })
+                
+//                //download photo
+//                let maxSize:Int64 = 25 * 1024 * 1024
+//                //self.responseReviews[indexPath.row].photoURL
+//                Storage.storage().reference(forURL: "ID/\(responseReviews[indexPath.row].userUID)/Profile/Photo").getData(maxSize: maxSize, completion: {
+//                    (data,error) in
+//                    if error != nil{
+//                        print("Photo error")
+//                        return
+//                    }
+//                    guard let imageData = UIImage(data: data!) else { return }
+//                    DispatchQueue.main.async {
+//                        cellResponse.replyPhoto.image = imageData
+//                    }
+//
+//                })
+                //
                 cellResponse.replyContent.delegate = self
                 return cellResponse
             }else{
@@ -193,8 +265,52 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         self.present(actionController, animated: true, completion: nil)
     }
-    
-    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let replyUID = self.responseReviews[indexPath.row].userUID
+        var isRemove = false
+        
+        if currerUID == replyUID{
+            isRemove = true
+        }
+        //set delete action
+        let deleteAction = UITableViewRowAction(style: .normal, title: "刪除", handler: {
+            (action,index) in
+            if isRemove == true{
+                let alertController = UIAlertController(title: "刪除確認", message: "確認要刪除回覆嗎？", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "確認", style: .default){
+                    (action:UIAlertAction) in
+                    Database.database().reference().child("POST/\(self.childIDFromTableView!)/reply/\(self.responseReviews[indexPath.row].childId)").removeValue()
+                    self.responseReviews.remove(at: indexPath.row)
+                    self.detailTableView.reloadData()
+                }
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                alertController.addAction(cancelAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
+        deleteAction.backgroundColor = .red
+        //set edit action
+        let editAction = UITableViewRowAction(style: .normal, title: "編輯", handler: {
+            (action,index) in
+            print("edit response")
+
+        })
+        
+        if isRemove == true{
+            return [deleteAction,editAction]
+        }else{
+            return nil
+        }
+    }
+    func popAlert(titleStr:String, messageStr:String){
+        let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
     func textViewDidChange(_ textView: UITextView) {
 //        let currentOffset = detailTableView.contentOffset
 //        UIView.setAnimationsEnabled(false)
