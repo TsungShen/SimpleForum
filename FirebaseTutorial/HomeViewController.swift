@@ -19,14 +19,11 @@ class HomeViewController: UIViewController {
     
     var uid = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
         if let user = Auth.auth().currentUser {
             self.uid = user.uid
-            
-//            print(user.email!)
-//            print("uid: \(user.uid)")
             var ref:DatabaseReference!
             //
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Name")
@@ -64,21 +61,13 @@ class HomeViewController: UIViewController {
                 })
             })
             //
-            ref = Database.database().reference(withPath: "POST")
-            ref.observe(.value, with: {
-                (snapshot) in
-                if let profile = snapshot.value{
-                    var profileArray:Any = []
-                    profileArray = profile
-                    print(profileArray)
-                    
-                }else{
-                    
-                }
-                
-            })
         }
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
     }
     
     override func didReceiveMemoryWarning() {

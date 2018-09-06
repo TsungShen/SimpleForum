@@ -462,6 +462,9 @@
                                     <constraint firstAttribute="width" constant="200" id="cUW-Hy-28Z"/>
                                 </constraints>
                                 <state key="normal" title="選擇圖片"/>
+                                <connections>
+                                    <action selector="uploadPhoto:" destination="YJh-nr-HGs" eventType="touchUpInside" id="KAN-e4-fLW"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZxW-BJ-7EG">
                                 <rect key="frame" x="87" y="295" width="200" height="30"/>
@@ -472,7 +475,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejY-NC-Rbh">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejY-NC-Rbh">
                                 <rect key="frame" x="87" y="333" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="UAg-Pp-0vp"/>
@@ -481,14 +484,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TRH-EC-lra">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TRH-EC-lra">
                                 <rect key="frame" x="67" y="385" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Lwc-oJ-aib"/>
                                     <constraint firstAttribute="width" constant="240" id="R41-XV-w6t"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -501,6 +503,9 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="QG2-eX-dcW"/>
                                 </constraints>
                                 <state key="normal" title="送出"/>
+                                <connections>
+                                    <action selector="sentEdit:" destination="YJh-nr-HGs" eventType="touchUpInside" id="P3P-Np-J3m"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -523,6 +528,10 @@
                     </view>
                     <connections>
                         <outlet property="birthTextField" destination="ejY-NC-Rbh" id="SnC-Qh-Ifo"/>
+                        <outlet property="editBirthday" destination="ejY-NC-Rbh" id="dLM-d2-Jgc"/>
+                        <outlet property="editImage" destination="G6o-gR-btD" id="m4u-LN-FNy"/>
+                        <outlet property="editName" destination="ZxW-BJ-7EG" id="K0g-yL-d9C"/>
+                        <outlet property="introductionText" destination="TRH-EC-lra" id="jGR-Ur-LT8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0iM-YV-bOR" userLabel="First Responder" sceneMemberID="firstResponder"/>

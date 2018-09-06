@@ -70,17 +70,16 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                     print("You have successfully signed up")
                     if let user = Auth.auth().currentUser{
                         self.uid = user.uid
-                        
+                        let uniqueString = NSUUID().uuidString
                         Database.database().reference(withPath:"ID/\(self.uid)/Profile/safety-Check").setValue("ON")
                         Database.database().reference(withPath:"ID/\(self.uid)/Profile/Name").setValue(self.nameTextField.text)
+                        Database.database().reference(withPath:"ID/\(self.uid)/Profile/Birthday").setValue("")
+                        Database.database().reference(withPath:"ID/\(self.uid)/Profile/Introduction").setValue("")
+                        Database.database().reference(withPath:"ID/\(self.uid)/Profile/PhotoName").setValue(uniqueString)
                         print("Strat Photo Handle")
-                        let uniqueString = NSUUID().uuidString
-                        let storageRef = Storage.storage().reference().child("Profile/Photo\(uniqueString).jpg")
-                        //reSize image
-//                        let resizePhoto = self.resizeImage(originalImg: self.accountImage.image!)
                         
-                        //try UIImageJPEGRepresentation
-                        //if let uploadData = UIImagePNGRepresentation(resizePhoto){
+                        let storageRef = Storage.storage().reference().child("Profile/Photo\(uniqueString).jpg")
+                        
                         if let uploadData = UIImageJPEGRepresentation(self.accountImage.image!,0.8){
                             print("Success convert to data")
 

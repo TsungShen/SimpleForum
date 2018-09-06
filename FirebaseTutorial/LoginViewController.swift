@@ -113,6 +113,8 @@ class LoginViewController: UIViewController {
                     }
                     
                     Database.database().reference(withPath:"ID/\(self.uid)/Profile/Name").setValue(user.displayName)
+                    Database.database().reference(withPath:"ID/\(self.uid)/Profile/Birthday").setValue("")
+                    Database.database().reference(withPath:"ID/\(self.uid)/Profile/Introduction").setValue("")
                 }
                 
                 let time:TimeInterval = 2.0

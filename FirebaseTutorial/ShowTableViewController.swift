@@ -21,12 +21,31 @@ class ShowTableViewController: UITableViewController {
     @IBOutlet weak var showTitle: UILabel!
     @IBOutlet weak var showAuth: UILabel!
     @IBOutlet weak var showDateTime: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        Database.database().reference(withPath: "POST").queryOrderedByKey().observe(.value, with: {
+//            (snapshot) in
+////            print("post count: \(snapshot.value)")
+//            if snapshot.childrenCount > 0{
+//                var dataList: [PostItem] = [PostItem]()
+//                
+//                for item in snapshot.children{
+//                    let data = PostItem(snapshot: item as! DataSnapshot)
+//                    dataList.append(data)
+//                }
+//                self.postReviews = dataList.reversed()
+////                print("dataList: \(dataList)")
+//                self.tableView.reloadData()
+//                
+//            }
+//        })
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         Database.database().reference(withPath: "POST").queryOrderedByKey().observe(.value, with: {
             (snapshot) in
-//            print("post count: \(snapshot.value)")
+            //            print("post count: \(snapshot.value)")
             if snapshot.childrenCount > 0{
                 var dataList: [PostItem] = [PostItem]()
                 
@@ -35,16 +54,10 @@ class ShowTableViewController: UITableViewController {
                     dataList.append(data)
                 }
                 self.postReviews = dataList.reversed()
-//                print("dataList: \(dataList)")
+                //                print("dataList: \(dataList)")
                 self.tableView.reloadData()
                 
             }
-            
-            
-            
-//            if let dictionaryData = snapshot.value as? [String : AnyObject]{
-//                print(dictionaryData)
-//            }
         })
     }
 
@@ -69,8 +82,20 @@ class ShowTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? ShowTableViewCell
         cell?.showTitle.text = postReviews[indexPath.row].title
-        cell?.showAuth.text = postReviews[indexPath.row].auth
+//        cell?.showAuth.text = postReviews[indexPath.row].auth
         cell?.showDateTime.text = postReviews[indexPath.row].datetime
+        var ref:DatabaseReference!
+        //download name
+        ref = Database.database().reference(withPath: "ID/\(postReviews[indexPath.row].userUID)/Profile/Name")
+        ref.observe(.value, with: {
+            (snapshot) in
+            if let name = snapshot.value{
+                let showName = name as! String
+                cell?.showAuth.text = name as! String
+            }else{
+                cell?.showAuth.text = "user"
+            }
+        })
 
         // Configure the cell...
 
