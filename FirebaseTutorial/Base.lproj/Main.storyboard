@@ -346,6 +346,24 @@
             </objects>
             <point key="canvasLocation" x="1556" y="1175"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="k7Q-G9-NGI">
+            <objects>
+                <viewController id="dKx-Wp-Aj9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GM0-2K-Y6Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="nUc-tF-LKI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cJd-Eu-H9J">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Nw-Mq-7zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2292" y="882"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="51j-fk-Jwd">
             <objects>
@@ -541,7 +559,7 @@
         <!--Input View Controller-->
         <scene sceneID="s8X-PO-qcm">
             <objects>
-                <viewController id="KeE-nl-ziO" customClass="InputViewController" customModule="FirebaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addNewPost" id="KeE-nl-ziO" customClass="InputViewController" customModule="FirebaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ks9-B9-ulT"/>
                         <viewControllerLayoutGuide type="bottom" id="93F-10-Wn3"/>
@@ -567,7 +585,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39b-Od-TDE">
-                                <rect key="frame" x="87" y="539" width="200" height="30"/>
+                                <rect key="frame" x="87" y="588" width="200" height="30"/>
                                 <color key="backgroundColor" red="0.92149572789141032" green="0.9306194479695431" blue="0.9306194479695431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="JeY-Sc-E85"/>
@@ -587,11 +605,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0n-em-iFy">
+                                <rect key="frame" x="289" y="28" width="70" height="30"/>
+                                <color key="backgroundColor" red="0.92149572790000001" green="0.93061944799999996" blue="0.93061944799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="We4-Ko-rYa"/>
+                                    <constraint firstAttribute="width" constant="70" id="hH8-ew-j9g"/>
+                                </constraints>
+                                <state key="normal" title="取消"/>
+                                <connections>
+                                    <action selector="goBack:" destination="KeE-nl-ziO" eventType="touchUpInside" id="9fC-LD-4td"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7np-IC-aap" firstAttribute="centerX" secondItem="6BX-w3-GAH" secondAttribute="centerX" id="8zk-Kr-uRf"/>
+                            <constraint firstItem="B0n-em-iFy" firstAttribute="trailing" secondItem="6BX-w3-GAH" secondAttribute="trailingMargin" id="9iA-1C-4Wi"/>
                             <constraint firstItem="39b-Od-TDE" firstAttribute="centerX" secondItem="6BX-w3-GAH" secondAttribute="centerX" id="DTm-oz-Trp"/>
+                            <constraint firstItem="B0n-em-iFy" firstAttribute="top" secondItem="Ks9-B9-ulT" secondAttribute="bottom" constant="8" id="GWs-ys-m0f"/>
                             <constraint firstItem="O41-IY-c6r" firstAttribute="leading" secondItem="6BX-w3-GAH" secondAttribute="leadingMargin" constant="45" id="JdJ-tp-RM4"/>
                             <constraint firstItem="194-Vl-UGa" firstAttribute="leading" secondItem="6BX-w3-GAH" secondAttribute="leadingMargin" constant="45" id="Kb8-0N-lwh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="O41-IY-c6r" secondAttribute="trailing" constant="45" id="Oxy-by-s6h"/>
@@ -610,7 +642,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="od2-7z-olO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3276" y="151.57421289355324"/>
+            <point key="canvasLocation" x="4215" y="191"/>
         </scene>
         <!--Update View Controller-->
         <scene sceneID="FwD-A6-aVS">
@@ -774,7 +806,13 @@
                             <outlet property="delegate" destination="eRt-9V-46p" id="kDT-Hv-jfF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="動態牆" id="Eyz-K2-Akf"/>
+                    <navigationItem key="navigationItem" title="動態牆" id="Eyz-K2-Akf">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="QPV-t2-ZnS">
+                            <connections>
+                                <action selector="addNewPost:" destination="eRt-9V-46p" id="RY1-K1-d2I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKe-gl-wcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -971,7 +1009,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="hxY-Ju-URQ" kind="relationship" relationship="viewControllers" id="2pf-LW-hl8"/>
-                        <segue destination="KeE-nl-ziO" kind="relationship" relationship="viewControllers" id="2DM-Va-xdf"/>
                         <segue destination="Y6S-2w-slK" kind="relationship" relationship="viewControllers" id="eee-TF-lHq"/>
                     </connections>
                 </tabBarController>

@@ -92,7 +92,10 @@ class InputViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func goBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func getDateTimeNow() -> String{
         let now = Date()
         let dateFormat = DateFormatter()
@@ -102,7 +105,10 @@ class InputViewController: UIViewController {
     }
     func popAlert(titleStr:String, messageStr:String){
         let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel){
+            (action:UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }
         alertController.addAction(defaultAction)
         
         present(alertController, animated: true, completion: nil)

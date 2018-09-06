@@ -24,22 +24,7 @@ class ShowTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        Database.database().reference(withPath: "POST").queryOrderedByKey().observe(.value, with: {
-//            (snapshot) in
-////            print("post count: \(snapshot.value)")
-//            if snapshot.childrenCount > 0{
-//                var dataList: [PostItem] = [PostItem]()
-//                
-//                for item in snapshot.children{
-//                    let data = PostItem(snapshot: item as! DataSnapshot)
-//                    dataList.append(data)
-//                }
-//                self.postReviews = dataList.reversed()
-////                print("dataList: \(dataList)")
-//                self.tableView.reloadData()
-//                
-//            }
-//        })
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -65,7 +50,13 @@ class ShowTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func addNewPost(_ sender: UIBarButtonItem) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "addNewPost")
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
