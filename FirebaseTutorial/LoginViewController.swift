@@ -48,6 +48,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func facebookLogin(_ sender: UIButton) {
         let fbLoginManager = FBSDKLoginManager()
+        let uniqueString = NSUUID().uuidString
         fbLoginManager.logIn(withReadPermissions: ["public_profile","email"], from: self, handler: {
         (result,error) in
             if let errorToken = error{
@@ -76,11 +77,12 @@ class LoginViewController: UIViewController {
                                 print("photo download fail")
                                 return
                             }
+                            
                             if let okURL = url{
                                 do{
                                     if let downloadImage = UIImage(data: try Data(contentsOf: okURL)){
-                                        let uniqueString = NSUUID().uuidString
-                                        let storageRef = Storage.storage().reference().child("\(uniqueString).png")
+                                        
+                                        let storageRef = Storage.storage().reference().child("\(uniqueString).jpg")
                                         if let uploadData = UIImagePNGRepresentation(downloadImage){
                                             storageRef.putData(uploadData, metadata: nil, completion: {
                                                 (data,error) in
@@ -115,6 +117,7 @@ class LoginViewController: UIViewController {
                     Database.database().reference(withPath:"ID/\(self.uid)/Profile/Name").setValue(user.displayName)
                     Database.database().reference(withPath:"ID/\(self.uid)/Profile/Birthday").setValue("")
                     Database.database().reference(withPath:"ID/\(self.uid)/Profile/Introduction").setValue("")
+                    Database.database().reference(withPath:"ID/\(self.uid)/Profile/PhotoName").setValue(uniqueString)
                 }
                 
                 let time:TimeInterval = 2.0
@@ -135,15 +138,6 @@ class LoginViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
-    
-//    func delayTime(time: TimeInterval,page: String){
-////        let time:TimeInterval = 2.0
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
-//            let vc = self.storyboard?.instantiateViewController(withIdentifier: page)
-//            self.present(vc!,animated: true,completion: nil)
-//        }
-//    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

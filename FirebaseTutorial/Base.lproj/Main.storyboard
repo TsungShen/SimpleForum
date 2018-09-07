@@ -346,24 +346,6 @@
             </objects>
             <point key="canvasLocation" x="1556" y="1175"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="k7Q-G9-NGI">
-            <objects>
-                <viewController id="dKx-Wp-Aj9" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GM0-2K-Y6Y"/>
-                        <viewControllerLayoutGuide type="bottom" id="nUc-tF-LKI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cJd-Eu-H9J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Nw-Mq-7zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2292" y="882"/>
-        </scene>
         <!--Home View Controller-->
         <scene sceneID="51j-fk-Jwd">
             <objects>
@@ -642,7 +624,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="od2-7z-olO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4215" y="191"/>
+            <point key="canvasLocation" x="4215" y="1599"/>
         </scene>
         <!--Update View Controller-->
         <scene sceneID="FwD-A6-aVS">
@@ -733,7 +715,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHs-g5-7xl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5158" y="192"/>
+            <point key="canvasLocation" x="5158" y="1599"/>
         </scene>
         <!--動態牆-->
         <scene sceneID="IOG-iM-DPl">
@@ -1009,6 +991,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="hxY-Ju-URQ" kind="relationship" relationship="viewControllers" id="2pf-LW-hl8"/>
+                        <segue destination="4S5-7z-R0I" kind="relationship" relationship="viewControllers" id="vGE-df-YT3"/>
                         <segue destination="Y6S-2w-slK" kind="relationship" relationship="viewControllers" id="eee-TF-lHq"/>
                     </connections>
                 </tabBarController>
@@ -1034,6 +1017,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PyT-LG-GVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3276" y="897.30134932533736"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="Xim-4y-nkO">
+            <objects>
+                <tableViewController id="ZP5-JW-SCm" customClass="CollectionPostTableViewController" customModule="FirebaseTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9mg-80-jiK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" rowHeight="60" id="pqt-MU-w59" customClass="CollectionPostTableViewCell" customModule="FirebaseTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pqt-MU-w59" id="F1n-DS-Uwy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input Test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGi-hy-DgB">
+                                            <rect key="frame" x="16" y="11" width="85" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Kc3-Ab-QQW"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="keyapp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ml7-SM-ylq">
+                                            <rect key="frame" x="16" y="32" width="166" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="166" id="e5Y-fm-z4M"/>
+                                                <constraint firstAttribute="height" constant="17" id="gLh-Yz-0so"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="166" id="pUL-JL-9yI"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018年08月24日 23:21:06" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ovC-ZE-3vR">
+                                            <rect key="frame" x="209" y="34" width="150" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="15" id="abU-fR-yFZ"/>
+                                                <constraint firstAttribute="width" constant="150" id="tIt-YI-IQw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ovC-ZE-3vR" firstAttribute="trailing" secondItem="F1n-DS-Uwy" secondAttribute="trailingMargin" id="AeO-EU-e1N"/>
+                                        <constraint firstItem="ovC-ZE-3vR" firstAttribute="bottom" secondItem="F1n-DS-Uwy" secondAttribute="bottomMargin" id="B9M-0e-2sH"/>
+                                        <constraint firstItem="kGi-hy-DgB" firstAttribute="top" secondItem="F1n-DS-Uwy" secondAttribute="topMargin" id="JSI-f3-6tI"/>
+                                        <constraint firstItem="Ml7-SM-ylq" firstAttribute="top" secondItem="kGi-hy-DgB" secondAttribute="bottom" id="apc-q4-vDo"/>
+                                        <constraint firstItem="Ml7-SM-ylq" firstAttribute="leading" secondItem="F1n-DS-Uwy" secondAttribute="leadingMargin" id="eF9-Rp-Tfl"/>
+                                        <constraint firstItem="kGi-hy-DgB" firstAttribute="leading" secondItem="F1n-DS-Uwy" secondAttribute="leadingMargin" id="n6U-6u-85S"/>
+                                        <constraint firstItem="Ml7-SM-ylq" firstAttribute="top" secondItem="kGi-hy-DgB" secondAttribute="bottom" id="zk1-Ri-nUm"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="showAuth" destination="Ml7-SM-ylq" id="0A6-uJ-QaS"/>
+                                    <outlet property="showDateTime" destination="ovC-ZE-3vR" id="3KL-Wx-pJ8"/>
+                                    <outlet property="showTittle" destination="kGi-hy-DgB" id="a22-Lw-tvL"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZP5-JW-SCm" id="slr-uR-Z6X"/>
+                            <outlet property="delegate" destination="ZP5-JW-SCm" id="SVf-ds-AU3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="YQg-iK-YPO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VVU-Iw-WZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4061.5999999999999" y="132.68365817091455"/>
+        </scene>
+        <!--我的文章-->
+        <scene sceneID="ghu-n9-Aws">
+            <objects>
+                <navigationController id="4S5-7z-R0I" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我的文章" id="Hbk-wt-Hpx"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7zP-k8-Ryd">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZP5-JW-SCm" kind="relationship" relationship="rootViewController" id="hij-dA-DvW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zca-Zu-4I1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3276" y="133"/>
         </scene>
         <!--Response View Controller-->
         <scene sceneID="h41-pg-hbe">

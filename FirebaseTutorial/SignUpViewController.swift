@@ -61,7 +61,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
     //Sign Up Action for email
     @IBAction func createAccountAction(_ sender: AnyObject) {
         
-        if emailTextField.text == nil || passwordTextField.text == "" || nameTextField.text == "" {
+        if emailTextField.text == nil || passwordTextField.text == nil || nameTextField.text == nil || accountImage.image == nil {
             popAlert(titleStr: "Error", messageStr: "Please enter your email")
         }else{
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
@@ -108,6 +108,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                                     print("uploadImageURL null")
                                 }
                             })
+                            //
                         }else{
                             print("uploadData fail")
                         }
@@ -121,8 +122,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate, U
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time){
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
                         self.present(vc!, animated: true, completion: nil)
-                        
-                        
                     }
                     
 //                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login")
