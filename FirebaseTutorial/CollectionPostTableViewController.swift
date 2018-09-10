@@ -15,35 +15,82 @@ import FirebaseStorage
 
 class CollectionPostTableViewController: UITableViewController {
 
-    var postReviews: [PostItem] = [PostItem]()
-    var childID: String = ""
+    var collectionReviews: [CollectionItem] = [CollectionItem]()
+    var collectionPost: [CollectionPost] = [CollectionPost]()
     
-    @IBOutlet weak var showTitle: UILabel!
-    @IBOutlet weak var showAuth: UILabel!
-    @IBOutlet weak var showDateTime: UILabel!
+    var childID: String = ""
+    var uid = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let user = Auth.auth().currentUser{
+            print("run in currerUser")
+            self.uid = user.uid
+        }
         
+        Database.database().reference(withPath: "ID/\(uid)/Collection").queryOrderedByKey().observe(.value, with: {
+            (snapshot) in
+            print("run in enter uid/Collection")
+            if snapshot.childrenCount > 0{
+                print("run in snapshot.childrenCount > 0")
+                var valueOfID: [CollectionItem] = [CollectionItem]()
+                for item in snapshot.children{
+                    print("run in loop for storage Post childID")
+                    let data = CollectionItem(snapshot: item as! DataSnapshot)
+                    valueOfID.append(data)
+                }
+                print("input data to coiiectionReviews")
+                self.collectionReviews = valueOfID
+                //                    print("collectionReview0: \(self.collectionReviews[0].childId)")
+                //                    print("collectionReview1: \(self.collectionReviews[1].childId)")
+                //                    print("collectionReview2: \(self.collectionReviews[2].childId)")
+                //                    self.tableView.reloadData()
+                //-----------------download data
+                var i = 0
+                while i < self.collectionReviews.count{
+                    print("in loop \(i)")
+                print("start to download data, POST/\(self.collectionReviews[i].childId)")
+                Database.database().reference(withPath: "POST/\(self.collectionReviews[i].childId)").queryOrderedByKey().observe(.value, with: {
+                    (snapshot) in
+                    print("run in self.collectionReviews[0].childId")
+                    let testData = snapshot.value as! NSDictionary
+                    if snapshot.childrenCount > 0{
+                        print("run in snapshot")
+                        var dataList: [CollectionPost] = [CollectionPost]()
+                        let childId = testData["childId"]
+                        let title = testData["title"]
+                        let content = testData["content"]
+                        let datetime = testData["dateTime"]
+                        let auth = testData["auth"]
+                        let photoURL = testData["photoURL"]
+                        let userUID = testData["userUID"]
+                        
+                        let aPost = CollectionPost(childId: childId as! String, title: title as! String, content: content as! String, datetime: datetime as! String, auth: auth as! String, photoURL: photoURL as! String, userUID: userUID as! String)
+                        print("aPost: \(aPost)")
+                        self.collectionPost.append(aPost)
+//                        self.collectionPost = dataList
+                        print("before tableView.reloadData()")
+                        self.tableView.reloadData()
+                    }
+                })//end of download post
+                
+                    i = i + 1
+                }
+            }else{
+                print("error snapshot.childrenCount < 0")
+            }
+            
+        })
+        //ok
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        Database.database().reference(withPath: "POST").queryOrderedByKey().observe(.value, with: {
-            (snapshot) in
-            //            print("post count: \(snapshot.value)")
-            if snapshot.childrenCount > 0{
-                var dataList: [PostItem] = [PostItem]()
-                
-                for item in snapshot.children{
-                    let data = PostItem(snapshot: item as! DataSnapshot)
-                    dataList.append(data)
-                }
-                self.postReviews = dataList.reversed()
-                print("dataList: \(dataList)")
-                self.tableView.reloadData()
-                
-            }
-        })
+//        print("0------------------------")
+//        print(dataList)
+
+        print("uid: \(uid)")
+
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,18 +113,24 @@ class CollectionPostTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.postReviews.count
+        print("numberOfRowsInSection: \(collectionReviews.count)")
+//        return collectionReviews.count
+        return collectionPost.count
+        
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        collectionPost = collectionPost.reversed()
+        print("dataList: \(collectionPost)")
+        print("index: \(indexPath.row)")
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as? CollectionPostTableViewCell
-        cell?.showTittle.text = postReviews[indexPath.row].title
-        //        cell?.showAuth.text = postReviews[indexPath.row].auth
-        cell?.showDateTime.text = postReviews[indexPath.row].datetime
+        cell?.showTittle.text = collectionPost[indexPath.row].title
+//        cell?.showAuth.text = dataList[indexPath.row].auth
+        cell?.showDateTime.text = collectionPost[indexPath.row].datetime
         var ref:DatabaseReference!
         //download name
-        ref = Database.database().reference(withPath: "ID/\(postReviews[indexPath.row].userUID)/Profile/Name")
+        ref = Database.database().reference(withPath: "ID/\(collectionPost[indexPath.row].userUID)/Profile/Name")
         ref.observe(.value, with: {
             (snapshot) in
             if let name = snapshot.value{
@@ -93,22 +146,22 @@ class CollectionPostTableViewController: UITableViewController {
         return cell!
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showDetail"{
-//            if let dvc = segue.destination as? DetailViewController{
-//                if let selectRow = tableView.indexPathForSelectedRow?.row{
-//                    dvc.accountPhotoFromTableView = postReviews[selectRow].auth
-//                    dvc.authNameFromTableView = postReviews[selectRow].auth
-//                    dvc.postTitleFromTableView = postReviews[selectRow].title
-//                    dvc.postTimeFromTableView = postReviews[selectRow].datetime
-//                    dvc.postContentFromTableView = postReviews[selectRow].content
-//                    dvc.authPhotoFromTableView = postReviews[selectRow].photoURL
-//                    dvc.childIDFromTableView = postReviews[selectRow].childId
-//                    dvc.authUID = postReviews[selectRow].userUID
-//                }
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail"{
+            if let dvc = segue.destination as? DetailViewController{
+                if let selectRow = tableView.indexPathForSelectedRow?.row{
+                    dvc.accountPhotoFromTableView = collectionPost[selectRow].auth
+                    dvc.authNameFromTableView = collectionPost[selectRow].auth
+                    dvc.postTitleFromTableView = collectionPost[selectRow].title
+                    dvc.postTimeFromTableView = collectionPost[selectRow].datetime
+                    dvc.postContentFromTableView = collectionPost[selectRow].content
+                    dvc.authPhotoFromTableView = collectionPost[selectRow].photoURL
+                    dvc.childIDFromTableView = collectionPost[selectRow].childId
+                    dvc.authUID = collectionPost[selectRow].userUID
+                }
+            }
+        }
+    }
     
 //    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 //        let authUID = postReviews[indexPath.row].userUID

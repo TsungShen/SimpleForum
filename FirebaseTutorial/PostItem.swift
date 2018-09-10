@@ -31,5 +31,6 @@ struct PostItem {
         self.photoURL = snapshotValue["photoURL"] as! String
         self.userUID = snapshotValue["userUID"] as! String
 //        self.reply = snapshotValue["reply"] as! String
-    }
+        }
+    
 }

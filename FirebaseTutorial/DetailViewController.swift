@@ -253,6 +253,24 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             vc.childIDFromDetailTableView = self.childIDFromTableView
             self.present(vc, animated: true, completion: nil)
         }
+        let collectionAction = UIAlertAction(title: "收藏文章", style: .default){
+            (action:UIAlertAction) in
+            if let uid = self.currerUID{
+                let reference = Database.database().reference().child("ID/\(uid)/Collection")
+                var collection:[String : AnyObject] = [String : AnyObject]()
+                collection["childId"] = self.childIDFromTableView as AnyObject
+                let collectionReference = reference.child(self.childIDFromTableView!)
+                collectionReference.updateChildValues(collection){
+                    (error,ref) in
+                    if error != nil{
+                        print(error?.localizedDescription)
+                        return
+                    }
+                    print(ref.description())
+                }
+            }
+            
+        }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         if currerUID == authUID{
@@ -261,6 +279,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
             actionController.addAction(cancelAction)
         }else{
             actionController.addAction(replyAction)
+            actionController.addAction(collectionAction)
             actionController.addAction(cancelAction)
         }
         self.present(actionController, animated: true, completion: nil)

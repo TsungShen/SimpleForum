@@ -30,7 +30,7 @@ class ShowTableViewController: UITableViewController {
         super.viewWillAppear(true)
         Database.database().reference(withPath: "POST").queryOrderedByKey().observe(.value, with: {
             (snapshot) in
-            //            print("post count: \(snapshot.value)")
+            print("post count: \(snapshot.value)")
             if snapshot.childrenCount > 0{
                 var dataList: [PostItem] = [PostItem]()
                 
