@@ -11,6 +11,7 @@ import Firebase
 
 struct CollectionItem {
     var childId: String
+//    var status: String
 //    var title: String
 //    var content: String
 //    var datetime: String
@@ -24,6 +25,7 @@ struct CollectionItem {
         
         let snapshotValue: [String: AnyObject] = snapshot.value as! [String : AnyObject]
         self.childId = snapshotValue["childId"] as! String
+//        self.status = snapshotValue["status"] as! String
 //        self.title = snapshotValue["title"] as! String
 //        self.content = snapshotValue["content"] as! String
 //        self.datetime = snapshotValue["dateTime"] as! String

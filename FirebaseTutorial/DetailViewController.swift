@@ -268,6 +268,7 @@ class DetailViewController: UIViewController,UITableViewDelegate,UITableViewData
                     }
                     print(ref.description())
                 }
+                Database.database().reference(withPath:"ID/\(uid)/Status").setValue("Yes")
             }
             
         }

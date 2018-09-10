@@ -32,13 +32,13 @@
                                     <segue destination="eaE-HM-yhK" kind="presentation" id="MqV-y1-dHY"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0iC-Yr-4x0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="keyappservice@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0iC-Yr-4x0">
                                 <rect key="frame" x="87" y="318" width="200" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sWX-1N-KFc">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test01" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sWX-1N-KFc">
                                 <rect key="frame" x="87" y="356" width="200" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1078,6 +1078,7 @@
                                     <outlet property="showAuth" destination="Ml7-SM-ylq" id="0A6-uJ-QaS"/>
                                     <outlet property="showDateTime" destination="ovC-ZE-3vR" id="3KL-Wx-pJ8"/>
                                     <outlet property="showTittle" destination="kGi-hy-DgB" id="a22-Lw-tvL"/>
+                                    <segue destination="WgM-Tm-GM4" kind="show" identifier="showDetail" id="A2W-hY-vEa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1095,7 +1096,7 @@
         <!--我的收藏-->
         <scene sceneID="ghu-n9-Aws">
             <objects>
-                <navigationController id="4S5-7z-R0I" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="collection" id="4S5-7z-R0I" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的收藏" id="Hbk-wt-Hpx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7zP-k8-Ryd">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1371,8 +1372,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zck-D5-27A"/>
-        <segue reference="d7R-4T-WIa"/>
+        <segue reference="A2W-hY-vEa"/>
+        <segue reference="beR-1q-6vA"/>
+        <segue reference="MqV-y1-dHY"/>
         <segue reference="V5Z-ei-lQN"/>
     </inferredMetricsTieBreakers>
 </document>
