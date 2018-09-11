@@ -3,8 +3,8 @@
 //  FirebaseTutorial
 //
 //  Created by 呂宗昇 on 2018/8/31.
-//  Copyright © 2018年 AppCoda. All rights reserved.
-//
+//  Copyright © 2018年 TSL. All rights reserved.
+//  此頁面負責讓使用者輸入要回應貼文的內容。
 
 import UIKit
 import Firebase
@@ -13,17 +13,21 @@ import FirebaseDatabase
 import FirebaseStorage
 
 class ResponseViewController: UIViewController {
-
+    
+    //Outlets
     @IBOutlet weak var replyContent: UITextView!
     
+    //declaration
     var childIDFromDetailTableView:String?
     var ref:DatabaseReference!
     var replyName:String = " "
     var photoURL:String = " "
     var uid = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //下載回應者名稱（此段可省略，因為已改成透過uid抓取作者名稱與照片）
         if let user = Auth.auth().currentUser{
             self.uid = user.uid
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Name")
@@ -36,8 +40,9 @@ class ResponseViewController: UIViewController {
                 }else{
                     self.replyName = "User"
                 }
-            })
-            //
+            })//End of download name
+            
+            //下載回應者照片（此段可省略，因為已改成透過uid抓取作者名稱與照片）
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Photo")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -48,17 +53,16 @@ class ResponseViewController: UIViewController {
                 }else{
                     self.photoURL = ""
                 }
-            })
-        }
-
-        // Do any additional setup after loading the view.
+            })//End of download photo
+        }//End of currentUser
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //送出回應的按鈕
     @IBAction func replyPost(_ sender: UIButton) {
         if let content = replyContent.text{
             let timeNow = getDateTimeNow()
@@ -66,6 +70,7 @@ class ResponseViewController: UIViewController {
                 let reference = Database.database().reference().child("POST/\(childID)/reply")
                 let childRef = reference.childByAutoId()
                 
+                //完成寫入回應到資料庫的前置作業
                 var reply:[String : AnyObject] = [String : AnyObject]()
                 reply["childId"] = childRef.key as AnyObject
                 reply["content"] = "\(content)" as AnyObject
@@ -74,6 +79,7 @@ class ResponseViewController: UIViewController {
                 reply["photoURL"] = "\(photoURL)" as AnyObject
                 reply["userUID"] = "\(uid)" as AnyObject
                 
+                //將回應寫入至資料庫
                 let replyReference = reference.child(childRef.key)
                 replyReference.updateChildValues(reply){
                     (error,ref) in
@@ -85,19 +91,16 @@ class ResponseViewController: UIViewController {
                 }
                 print("Success reply")
                 popAlert(titleStr: "回應成功", messageStr: "已成功回應貼文")
-
-                //            titleText.text = ""
-                //            contentText.text = ""
-            }
-            }
-            
-
+            }//End of childID
+        }//End of content
     }
     
+    //返回按鈕
     @IBAction func goBack(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    //取得發文當下日期時間
     func getDateTimeNow() -> String{
         let now = Date()
         let dateFormat = DateFormatter()
@@ -105,6 +108,7 @@ class ResponseViewController: UIViewController {
         let timeNow = dateFormat.string(from: now)
         return timeNow
     }
+    //警告控制器
     func popAlert(titleStr:String, messageStr:String){
         let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .cancel){
@@ -115,18 +119,8 @@ class ResponseViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
+    //點擊空白區域即可收回鍵盤
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

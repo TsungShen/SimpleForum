@@ -3,8 +3,8 @@
 //  FirebaseTutorial
 //
 //  Created by 呂宗昇 on 2018/9/1.
-//  Copyright © 2018年 AppCoda. All rights reserved.
-//
+//  Copyright © 2018年 TSL. All rights reserved.
+//  用來解析 DetailTableViewController 下載的貼文內容
 
 import Foundation
 import Firebase
@@ -18,8 +18,6 @@ struct ResponseItem {
     var userUID: String
     
     init(snapshot: DataSnapshot) {
-        //        print("snapshot: \(snapshot.value)")
-        
         let snapshotValue: [String: AnyObject] = snapshot.value as! [String : AnyObject]
         self.childId = snapshotValue["childId"] as! String
         self.content = snapshotValue["content"] as! String

@@ -3,8 +3,8 @@
 //  FirebaseTutorial
 //
 //  Created by 呂宗昇 on 2018/9/5.
-//  Copyright © 2018年 AppCoda. All rights reserved.
-//
+//  Copyright © 2018年 TSL. All rights reserved.
+//  此頁面負責讓使用者編輯個人資料。
 
 import UIKit
 import Firebase
@@ -13,25 +13,30 @@ import FirebaseDatabase
 import FirebaseStorage
 
 class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    //Outlets
     @IBOutlet weak var birthTextField: UITextField!
     @IBOutlet weak var editImage: UIImageView!
     @IBOutlet weak var editName: UITextField!
     @IBOutlet weak var editBirthday: UITextField!
     @IBOutlet weak var introductionText: UITextView!
     
+    //declaration
     var formater:DateFormatter! = nil
     var uid = ""
     var imageFileName:String?
     var birthday = ""
+    var ref:DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //從DatePicker取得使用者輸入的生日。
         getBirthday()
+        
         if let user = Auth.auth().currentUser{
             self.uid = user.uid
             
-            var ref:DatabaseReference!
-            //
+            //下載使用者名稱
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Name")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -43,8 +48,9 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                     self.editName.text = " "
                 }
                 
-            })
-            //
+            })//End of download name
+            
+            //下載使用者生日
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Birthday")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -54,8 +60,9 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                 }else{
                     self.editBirthday.text = " "
                 }
-            })
-            //
+            })//End of download birthday
+            
+            //下載使用者個人簡介
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Introduction")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -65,8 +72,9 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                 }else{
                     self.introductionText.text = ""
                 }
-            })
-            //
+            })//End of Introduction
+            
+            //下載使用者照片
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/Photo")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -85,12 +93,13 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                         DispatchQueue.main.async {
                             self.editImage.image = imageData
                         }
-                    })
+                    })//End of download photo data
                 }else{
                     self.imageFileName = ""
                 }
-            })
-            //
+            })//End of download photo url
+            
+            //下載使用者照片檔名
             ref = Database.database().reference(withPath: "ID/\(self.uid)/Profile/PhotoName")
             ref.observe(.value, with: {
                 (snapshot) in
@@ -100,12 +109,16 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                 }else{
                     self.imageFileName = ""
                 }
-            })
-        }
-        
-        
+            })//End of download PhotoName
+        }//End of currentUser
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    //選擇圖片的按鈕
     @IBAction func uploadPhoto(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -117,26 +130,29 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                 imagePickerController.sourceType = .photoLibrary
                 self.present(imagePickerController, animated: true, completion: nil)
             }
-        })
+        })//End of imageFromLibAction
         let imageFromCameraAction = UIAlertAction(title: "相機", style: .default, handler: {
             (void) in
             if UIImagePickerController.isSourceTypeAvailable(.camera){
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
             }
-        })
+        })//End of imageFromCameraAction
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: {
             (void) in
             imagePickerAlertController.dismiss(animated: true, completion: nil)
-        })
+        })//End of cancelAction
+        
         imagePickerAlertController.addAction(imageFromLibAction)
         imagePickerAlertController.addAction(imageFromCameraAction)
         imagePickerAlertController.addAction(cancelAction)
         
         present(imagePickerAlertController, animated: true, completion: nil)
     }
+    
+    //送出按鈕
     @IBAction func sentEdit(_ sender: UIButton) {
-        //photo update
+        //把照片用原來的檔名上傳
         if let fileName = imageFileName{
             let storageRef = Storage.storage().reference(withPath: "Profile/Photo\(fileName).jpg")
             if let uploadData = UIImageJPEGRepresentation(self.editImage.image!,0.8){
@@ -149,18 +165,24 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
                         print("Error: \(error1!.localizedDescription)")
                         return
                     }
-                })
+                })//End of putData
             }else{
                 print("uploadData fail")
             }
-        }
+        }//End of fileName
+        //把更新後的個人資料寫回資料庫
         Database.database().reference(withPath:"ID/\(self.uid)/Profile/Name").setValue(self.editName.text)
         Database.database().reference(withPath:"ID/\(self.uid)/Profile/Birthday").setValue(birthday)
         Database.database().reference(withPath:"ID/\(self.uid)/Profile/Introduction").setValue(introductionText.text)
         popAlert(titleStr: "個人資料", messageStr: "個人資料已更新完畢")
     }
     
+    //返回按鈕
+    @IBAction func goBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
+    //設定 DataPicker
     func getBirthday(){
         formater = DateFormatter()
         formater.dateFormat = "yyyy年MM月dd日"
@@ -173,18 +195,14 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
         birthTextField.inputView = birthDatePicker
         birthTextField.tag = 200
     }
-    
+    //取得 DataPicker 的數值
     func datePickerChanged(datePicker:UIDatePicker){
         let myTextField = self.view.viewWithTag(200) as? UITextField
         myTextField?.text = formater.string(from: datePicker.date)
-//        print("birthday: \(myTextField?.text)")
         self.birthday = (myTextField?.text)!
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+    //警告控制器
     func popAlert(titleStr:String, messageStr:String){
         let alertController = UIAlertController(title: titleStr, message: messageStr, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .cancel){
@@ -195,83 +213,19 @@ class ProfileEditViewController: UIViewController ,UIImagePickerControllerDelega
         
         present(alertController, animated: true, completion: nil)
     }
-    
-    @IBAction func goBack(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
+    //點擊空白區域即可收回鍵盤
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
+    //圖片選擇的額外方法
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         var selectedImageFromPicker: UIImage?
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             selectedImageFromPicker = pickedImage
         }
-        
         if let selectedImage = selectedImageFromPicker{
             editImage.image = selectedImage
-            
         }
         dismiss(animated: true, completion: nil)
     }
-    
-    func resizeImage(originalImg:UIImage) -> UIImage{
-        
-        //prepare constants
-        let width = originalImg.size.width
-        let height = originalImg.size.height
-        let scale = width/height
-        
-        var sizeChange = CGSize()
-        
-        if width <= 1280 && height <= 1280{ //a，图片宽或者高均小于或等于1280时图片尺寸保持不变，不改变图片大小
-            return originalImg
-        }else if width > 1280 || height > 1280 {//b,宽或者高大于1280，但是图片宽度高度比小于或等于2，则将图片宽或者高取大的等比压缩至1280
-            
-            if scale <= 2 && scale >= 1 {
-                let changedWidth:CGFloat = 1280
-                let changedheight:CGFloat = changedWidth / scale
-                sizeChange = CGSize(width: changedWidth, height: changedheight)
-                
-            }else if scale >= 0.5 && scale <= 1 {
-                
-                let changedheight:CGFloat = 1280
-                let changedWidth:CGFloat = changedheight * scale
-                sizeChange = CGSize(width: changedWidth, height: changedheight)
-                
-            }else if width > 1280 && height > 1280 {//宽以及高均大于1280，但是图片宽高比大于2时，则宽或者高取小的等比压缩至1280
-                
-                if scale > 2 {//高的值比较小
-                    
-                    let changedheight:CGFloat = 1280
-                    let changedWidth:CGFloat = changedheight * scale
-                    sizeChange = CGSize(width: changedWidth, height: changedheight)
-                    
-                }else if scale < 0.5{//宽的值比较小
-                    
-                    let changedWidth:CGFloat = 1280
-                    let changedheight:CGFloat = changedWidth / scale
-                    sizeChange = CGSize(width: changedWidth, height: changedheight)
-                    
-                }
-            }else {//d, 宽或者高，只有一个大于1280，并且宽高比超过2，不改变图片大小
-                return originalImg
-            }
-        }
-        
-        UIGraphicsBeginImageContext(sizeChange)
-        
-        //draw resized image on Context
-        //        originalImg.draw(in: CGRect(0, 0, sizeChange.width, sizeChange.height))
-        
-        //create UIImage
-        let resizedImg = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return resizedImg!
-        
-    }
-    
 }

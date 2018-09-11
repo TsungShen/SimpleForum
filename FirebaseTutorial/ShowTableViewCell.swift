@@ -3,8 +3,8 @@
 //  FirebaseTutorial
 //
 //  Created by 呂宗昇 on 2018/8/25.
-//  Copyright © 2018年 AppCoda. All rights reserved.
-//
+//  Copyright © 2018年 TSL. All rights reserved.
+//  自訂 Cell 的樣式。
 
 import UIKit
 
