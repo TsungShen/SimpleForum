@@ -6,6 +6,7 @@
 //  Updated by TSL on 10/09/2018
 //  Copyright © 2016 AppCoda. All rights reserved.
 //  此頁面負責使用者註冊
+//  prepare push on github
 
 import UIKit
 import Firebase
